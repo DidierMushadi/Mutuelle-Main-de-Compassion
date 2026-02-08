@@ -1,0 +1,20 @@
+# Environnements virtuels
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Variables sensibles
+.env
+.env.*
+
+# Node
+node_modules/
+dist/
+
+# OS / IDE
+.vscode/
+.idea/
+.DS_Store
