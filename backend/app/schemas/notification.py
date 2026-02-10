@@ -1,6 +1,7 @@
 from typing import Optional
-from pydantic import BaseModel
 from datetime import datetime
+from pydantic import BaseModel
+
 
 class NotificationBase(BaseModel):
     titre: str
@@ -8,14 +9,18 @@ class NotificationBase(BaseModel):
     date_envoi: Optional[datetime] = None
     destinataire_id: Optional[int] = None  # id du membre ou responsable
 
+
 class NotificationCreate(NotificationBase):
     pass
+
 
 class NotificationRead(NotificationBase):
     id: int
 
-    class Config:
-        from_attributes = True  # Remplace orm_mode pour Pydantic v2
+    model_config = {
+        "from_attributes": True
+    }
+
 
 class NotificationUpdate(BaseModel):
     titre: Optional[str] = None

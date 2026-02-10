@@ -1,10 +1,11 @@
 from typing import Optional, Annotated
-from pydantic import BaseModel, PositiveInt, constr
 from datetime import date
+from pydantic import BaseModel, PositiveInt
 
-MontantType = Annotated[float, PositiveInt()]  # si montant positif requis
-TauxInteretType = Annotated[float, PositiveInt()]
-DureeType = Annotated[int, PositiveInt()]
+MontantType = Annotated[float, PositiveInt]  # <-- PAS de ()
+TauxInteretType = Annotated[float, PositiveInt]
+DureeType = Annotated[int, PositiveInt]
+
 
 class EmpruntBase(BaseModel):
     montant: MontantType
@@ -13,15 +14,19 @@ class EmpruntBase(BaseModel):
     duree_mois: DureeType
     membre_id: int  # lien vers membre (id)
 
+
 class EmpruntCreate(EmpruntBase):
     pass
+
 
 class EmpruntRead(EmpruntBase):
     id: int
     rembourse: bool
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
+
 
 class EmpruntUpdate(BaseModel):
     montant: Optional[MontantType] = None
